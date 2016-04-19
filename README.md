@@ -30,6 +30,7 @@ let user = sourceViewController.output.selectedUser
 destinationViewController.output.user = user
 ```
 We think this is wrong because:
+
 1. We are not trying to output anything from the Router
 2. We are assuming the output === Interactor and the architecture loses sense (no component should know about what kind of object its output/input is)
 3. We dont want the ViewController to know anythyng about Business model
