@@ -31,10 +31,10 @@ destinationViewController.output.user = user
 ```
 We think this is wrong because:
 
-1. We are not trying to output anything from the Router
-2. We are assuming the output === Interactor and the architecture loses sense (no component should know about what kind of object its output/input is)
-3. We dont want the ViewController to know anythyng about Business model
-4. We want the interactor to handle this data but we don't want the ViewController to know anything about it.
+1. We are not trying to output anything from the ViewController.
+2. We are assuming the output === Interactor and the architecture loses sense (no component should know about what kind of object its output/input is).
+3. We dont want the ViewController to know anythyng about Business model.
+4. We want the Interactor to handle this data but we don't want the ViewController to know anything about it.
 
 So we added 2 new protocols on the router
 
@@ -52,7 +52,7 @@ protocol RouterDataDestination:class {
 So following the example before we would add this in the source Router:
 ```swift 
 protocol UserListRouterDataSource:class {
-var selectedUser:User! { get }
+    var selectedUser:User! { get }
 }
 
 protocol UserListRouterDataDestination:class {
@@ -67,7 +67,7 @@ protocol UserDetailRouterDataSource:class {
 }
 
 protocol UserDetailRouterDataDestination:class {
-var user:User! {get set}
+    var user:User! {get set}
 }
 ```
 
@@ -78,12 +78,12 @@ let user = dataSource.selectedUser
 userDetailViewController.router.dataDestination.user = user
 ```
 
-As previously mentioned we believe this handling should be done by the Interactor aswell but without the viewController knowing it so we added the protocols there and configured in the Configurator.swift.
+As previously mentioned we believe this handling should be done by the Interactor aswell but without the ViewController knowing it so we added the protocols there and changed the Configurator.swift in order to connect both protocols.
 
 So the source Interactor would look like this:
 ```swift
 protocol UserListDataSource {
-var selectedUser:User! { get }
+    var selectedUser:User! { get }
 }
 
 protocol UserListDataDestination {
@@ -101,7 +101,7 @@ protocol UserDetailDataSource {
 }
 
 protocol UserDetailDataDestination {
-var user:User! {get set}
+    var user:User! {get set}
 }
 
 class UserDetailInteractor: UserDetailInteractorInput, UserDetailDataSource, UserDetailDataDestination {
