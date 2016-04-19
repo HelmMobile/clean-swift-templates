@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DefaultCompletionName</key>
+	<string>MyScene</string>
+  <key>Description</key>
+  <string>This generates a new configurator to connect the view controller, interactor, presenter, and router. You should not need to modify it.</string>
+  <key>Kind</key>
+  <string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+  <key>Options</key>
+  <array>
+		<dict>
+			<key>Description</key>
+			<string>The name of the scene to create</string>
+			<key>Identifier</key>
+			<string>sceneName</string>
+			<key>Name</key>
+			<string>New Scene Name:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+    <dict>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___</string>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Type</key>
+			<string>static</string>
+    </dict>
+    <dict>
+			<key>Default</key>
+			<string>___VARIABLE_sceneName:identifier___Configurator</string>
+			<key>Description</key>
+			<string>The configurator name</string>
+			<key>Identifier</key>
+			<string>configuratorName</string>
+			<key>Name</key>
+			<string>Configurator Name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+    </dict>
+  </array>
+  <key>Platforms</key>
+  <array>
+		<string>com.apple.platform.iphoneos</string>
+  </array>
+	<key>SortOrder</key>
+	<string>2</string>
+  <key>Summary</key>
+  <string>This generates a new configurator to connect the view controller, interactor, presenter, and router. You should not need to modify it.</string>
+</dict>
+</plist>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>clean-swift usecase</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>struct &lt;#Use Case#&gt; {
+        
+        struct Request {
+            
+        }
+        
+        struct Response {
+            
+        }
+        
+        struct ViewModel {
+            
+        }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>EE0E1F91-B40D-4ADD-8B2D-C44D2B7DC9C3</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Creates necessary models for a use case</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Clean Swift - Use Case Models</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<false/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+	<key>Author</key>
+	<string>Miguel Berrocal (miguel@helm.cat)</string>
+</dict>
+</plist>

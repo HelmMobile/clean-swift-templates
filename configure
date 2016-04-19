@@ -1,0 +1,54 @@
+#!/bin/bash
+#JesusCamacho
+
+view="UIViewController"
+table="UITableViewController"
+collection="UICollectionViewController"
+
+#Eliminamos directorios de Clean Swift HELM/Scene.xctemplate
+rm -rf Clean\ Swift\ HELM/Scene.xctemplate/$view
+rm -rf Clean\ Swift\ HELM/Scene.xctemplate/$table
+rm -rf Clean\ Swift\ HELM/Scene.xctemplate/$collection
+
+# Copiamos los tres directorios de View Controller.xctemplate a Scene.xctemplate
+cp -rf Clean\ Swift\ HELM/View\ Controller.xctemplate/$view Clean\ Swift\ HELM/Scene.xctemplate
+cp -rf Clean\ Swift\ HELM/View\ Controller.xctemplate/$table Clean\ Swift\ HELM/Scene.xctemplate
+cp -rf Clean\ Swift\ HELM/View\ Controller.xctemplate/$collection Clean\ Swift\ HELM/Scene.xctemplate
+
+# Copiamos los .swift dentro de $view, $table, $collection
+## Configurator.xctemplate
+config="Configurator.xctemplate"
+configFile="___FILEBASENAME___Configurator.swift"
+cp Clean\ Swift\ HELM/$config/$configFile Clean\ Swift\ HELM/Scene.xctemplate/$view
+cp Clean\ Swift\ HELM/$config/$configFile Clean\ Swift\ HELM/Scene.xctemplate/$table
+cp Clean\ Swift\ HELM/$config/$configFile Clean\ Swift\ HELM/Scene.xctemplate/$collection
+
+## Interactor.xctemplate
+int="Interactor.xctemplate"
+intFile="___FILEBASENAME___Interactor.swift"
+cp Clean\ Swift\ HELM/$int/$intFile Clean\ Swift\ HELM/Scene.xctemplate/$view
+cp Clean\ Swift\ HELM/$int/$intFile Clean\ Swift\ HELM/Scene.xctemplate/$table
+cp Clean\ Swift\ HELM/$int/$intFile Clean\ Swift\ HELM/Scene.xctemplate/$collection
+
+## Models.xctemplate
+model="Models.xctemplate"
+modelFile="___FILEBASENAME___Models.swift"
+cp Clean\ Swift\ HELM/$model/$modelFile Clean\ Swift\ HELM/Scene.xctemplate/$view
+cp Clean\ Swift\ HELM/$model/$modelFile Clean\ Swift\ HELM/Scene.xctemplate/$table
+cp Clean\ Swift\ HELM/$model/$modelFile Clean\ Swift\ HELM/Scene.xctemplate/$collection
+ 
+## Presenter.xctemplate
+pres="Presenter.xctemplate"
+presFile="___FILEBASENAME___Presenter.swift"
+cp Clean\ Swift\ HELM/$pres/$presFile Clean\ Swift\ HELM/Scene.xctemplate/$view
+cp Clean\ Swift\ HELM/$pres/$presFile Clean\ Swift\ HELM/Scene.xctemplate/$table
+cp Clean\ Swift\ HELM/$pres/$presFile Clean\ Swift\ HELM/Scene.xctemplate/$collection
+ 
+## Router.xctemplate
+router="Router.xctemplate"
+routerFile="___FILEBASENAME___Router.swift"
+cp Clean\ Swift\ HELM/$router/$routerFile Clean\ Swift\ HELM/Scene.xctemplate/$view
+cp Clean\ Swift\ HELM/$router/$routerFile Clean\ Swift\ HELM/Scene.xctemplate/$table
+cp Clean\ Swift\ HELM/$router/$routerFile Clean\ Swift\ HELM/Scene.xctemplate/$collection
+ 
+
