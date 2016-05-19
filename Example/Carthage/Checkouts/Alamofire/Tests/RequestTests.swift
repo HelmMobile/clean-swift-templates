@@ -1,24 +1,26 @@
-// RequestTests.swift
 //
-// Copyright (c) 2014-2015 Alamofire Software Foundation (http://alamofire.org)
+//  RequestTests.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Alamofire
 import Foundation
@@ -485,6 +487,18 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
         return manager
     }()
 
+    let managerWithAcceptLanguageHeader: Manager = {
+        var headers = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
+        headers["Accept-Language"] = "en-US"
+        
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.HTTPAdditionalHeaders = headers
+        
+        let manager = Manager(configuration: configuration)
+        manager.startRequestsImmediately = false
+        return manager
+    }()
+    
     let managerDisallowingCookies: Manager = {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.HTTPShouldSetCookies = false
@@ -511,6 +525,29 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
         XCTAssertEqual(components.last ?? "", "\"\(URLString)\"", "URL component should be equal")
     }
 
+    func testGETRequestWithDuplicateHeadersDebugDescription() {
+        // Given
+        let URLString = "https://httpbin.org/get"
+
+        // When
+        let headers = [ "Accept-Language": "en-GB" ]
+        let request = managerWithAcceptLanguageHeader.request(.GET, URLString, headers: headers)
+        let components = cURLCommandComponents(request)
+
+        // Then
+        XCTAssertEqual(components[0..<3], ["$", "curl", "-i"], "components should be equal")
+        XCTAssertFalse(components.contains("-X"), "command should not contain explicit -X flag")
+        XCTAssertEqual(components.last ?? "", "\"\(URLString)\"", "URL component should be equal")
+
+        let tokens = request.debugDescription.componentsSeparatedByString("Accept-Language:")
+        XCTAssertTrue(tokens.count == 2, "command should contain a single Accept-Language header")
+
+        XCTAssertTrue(
+            request.debugDescription.rangeOfString("-H \"Accept-Language: en-GB\"") != nil,
+            "command should Accept-Language set to 'en-GB'"
+        )
+    }
+
     func testPOSTRequestDebugDescription() {
         // Given
         let URLString = "https://httpbin.org/post"
@@ -529,21 +566,32 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
         // Given
         let URLString = "https://httpbin.org/post"
 
+        let parameters = [
+            "foo": "bar",
+            "fo\"o": "b\"ar",
+            "f'oo": "ba'r"
+        ]
+
         // When
-        let request = manager.request(.POST, URLString, parameters: ["foo": "bar"], encoding: .JSON)
+        let request = manager.request(.POST, URLString, parameters: parameters, encoding: .JSON)
         let components = cURLCommandComponents(request)
 
         // Then
         XCTAssertEqual(components[0..<3], ["$", "curl", "-i"], "components should be equal")
         XCTAssertEqual(components[3..<5], ["-X", "POST"], "command should contain explicit -X flag")
+
         XCTAssertTrue(
             request.debugDescription.rangeOfString("-H \"Content-Type: application/json\"") != nil,
             "command should contain 'application/json' Content-Type"
         )
+
+        let expectedBody = "-d \"{\\\"f'oo\\\":\\\"ba'r\\\",\\\"fo\\\\\\\"o\\\":\\\"b\\\\\\\"ar\\\",\\\"foo\\\":\\\"bar\\\"}\""
+
         XCTAssertTrue(
-            request.debugDescription.rangeOfString("-d \"{\\\"foo\\\":\\\"bar\\\"}\"") != nil,
+            request.debugDescription.rangeOfString(expectedBody) != nil,
             "command data should contain JSON encoded parameters"
         )
+
         XCTAssertEqual(components.last ?? "", "\"\(URLString)\"", "URL component should be equal")
     }
 

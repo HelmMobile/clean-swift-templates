@@ -1,24 +1,26 @@
-// URLProtocolTests.swift
 //
-// Copyright (c) 2014–2016 Alamofire Software Foundation (http://alamofire.org/)
+//  URLProtocolTests.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Alamofire
 import Foundation
@@ -58,6 +60,10 @@ class ProxyURLProtocol: NSURLProtocol {
     }
 
     override class func canonicalRequestForRequest(request: NSURLRequest) -> NSURLRequest {
+        if let headers = request.allHTTPHeaderFields {
+            return ParameterEncoding.URL.encode(request, parameters: headers).0
+        }
+
         return request
     }
 
@@ -102,36 +108,36 @@ extension ProxyURLProtocol: NSURLSessionDelegate {
 // MARK: -
 
 class URLProtocolTestCase: BaseTestCase {
+    var manager: Manager!
 
-    // MARK: Setup and Teardown Methods
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
 
-        let configuration = Alamofire.Manager.sharedInstance.session.configuration
+        manager = {
+            let configuration: NSURLSessionConfiguration = {
+                let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+                configuration.protocolClasses = [ProxyURLProtocol.self]
+                configuration.HTTPAdditionalHeaders = ["session-configuration-header": "foo"]
 
-        configuration.protocolClasses = [ProxyURLProtocol.self]
-        configuration.HTTPAdditionalHeaders = ["Session-Configuration-Header": "foo"]
-    }
+                return configuration
+            }()
 
-    override func tearDown() {
-        super.tearDown()
-
-        Alamofire.Manager.sharedInstance.session.configuration.protocolClasses = []
+            return Manager(configuration: configuration)
+        }()
     }
 
     // MARK: Tests
 
-    func testThatURLProtocolReceivesRequestHeadersAndNotSessionConfigurationHeaders() {
+    func testThatURLProtocolReceivesRequestHeadersAndSessionConfigurationHeaders() {
         // Given
         let URLString = "https://httpbin.org/response-headers"
         let URL = NSURL(string: URLString)!
-        let parameters = ["request-header": "foobar"]
 
-        let mutableURLRequest = NSMutableURLRequest(URL: URL)
-        mutableURLRequest.HTTPMethod = Method.GET.rawValue
-
-        let URLRequest = ParameterEncoding.URL.encode(mutableURLRequest, parameters: parameters).0
+        let URLRequest = NSMutableURLRequest(URL: URL)
+        URLRequest.HTTPMethod = Method.GET.rawValue
+        URLRequest.setValue("foobar", forHTTPHeaderField: "request-header")
 
         let expectation = expectationWithDescription("GET request should succeed")
 
@@ -141,7 +147,7 @@ class URLProtocolTestCase: BaseTestCase {
         var error: NSError?
 
         // When
-        Alamofire.request(URLRequest)
+        manager.request(URLRequest)
             .response { responseRequest, responseResponse, responseData, responseError in
                 request = responseRequest
                 response = responseResponse
@@ -160,8 +166,14 @@ class URLProtocolTestCase: BaseTestCase {
         XCTAssertNil(error, "error should be nil")
 
         if let headers = response?.allHeaderFields as? [String: String] {
-            XCTAssertEqual(headers["request-header"] ?? "", "foobar", "urlrequest-header should be foobar")
-            XCTAssertNil(headers["Session-Configuration-Header"], "Session-Configuration-Header should be nil")
+            XCTAssertEqual(headers["request-header"], "foobar")
+
+            // Configuration headers are only passed in on iOS 9.0+
+            if #available(iOS 9.0, *) {
+                XCTAssertEqual(headers["session-configuration-header"], "foo")
+            } else {
+                XCTAssertNil(headers["session-configuration-header"])
+            }
         } else {
             XCTFail("headers should not be nil")
         }

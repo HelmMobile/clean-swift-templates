@@ -415,9 +415,9 @@
 		4C33A1171B5207DB00873DFF /* Certificates */ = {
 			isa = PBXGroup;
 			children = (
-				B39E2F821C1A72E5002DA1A9 /* Varying Encoding Types and Extensions */,
 				4C812C391B535F060017E0BF /* alamofire.org */,
 				4C812C381B535F000017E0BF /* disig.sk */,
+				B39E2F821C1A72E5002DA1A9 /* Varying Encoding Types and Extensions */,
 			);
 			name = Certificates;
 			path = Resources/Certificates;
@@ -562,7 +562,10 @@
 				F8111E3F19A95C8B0040E7D1 /* Tests */,
 				F8111E3419A95C8B0040E7D1 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		F8111E3419A95C8B0040E7D1 /* Products */ = {
 			isa = PBXGroup;
