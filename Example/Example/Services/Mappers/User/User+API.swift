@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 extension User:ResponseObjectSerializable {
-    
+        
     struct ParsingKeys {
         static let results = "results"
         struct Picture {
@@ -24,7 +24,7 @@ extension User:ResponseObjectSerializable {
         static let nameData = "name"
     }
     
-    convenience init?(json: JSON) {
+    static func object(fromJSON json: JSON) -> AnyObject? {
         let userJSON = json[ParsingKeys.results][0]
         guard let name = Name(json: userJSON[ParsingKeys.nameData])
             , let email = userJSON[ParsingKeys.email].string
@@ -33,7 +33,6 @@ extension User:ResponseObjectSerializable {
             else {
                 return nil
         }
-        
-        self.init(name: name, email: email, phone: phone, imageURLString: imageURLString)
+        return User(name: name, email: email, phone: phone, imageURLString: imageURLString)
     }
 }

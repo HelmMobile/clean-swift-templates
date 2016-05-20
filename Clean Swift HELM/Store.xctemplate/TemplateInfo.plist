@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DefaultCompletionName</key>
+	<string>MyStore</string>
+	<key>Description</key>
+	<string>This generates a new Store protocol to access specific entities with CRUD methods.</string>
+	<key>Kind</key>
+	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>The name of the entity to create the store</string>
+			<key>Identifier</key>
+			<string>entityName</string>
+			<key>Name</key>
+			<string>Entity Name:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>The plural name of the entity to create the store</string>
+			<key>Identifier</key>
+			<string>entityPluralName</string>
+			<key>Name</key>
+			<string>Plural Name:</string>
+			<key>Required</key>
+			<false/>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>The lowercase name of the entity to create the store</string>
+			<key>Identifier</key>
+			<string>entityLowercaseName</string>
+			<key>Name</key>
+			<string>Lowecase Name:</string>
+			<key>Required</key>
+			<false/>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_entityName___</string>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_entityName:identifier___Store</string>
+			<key>Description</key>
+			<string>The store name</string>
+			<key>Identifier</key>
+			<string>storeName</string>
+			<key>Name</key>
+			<string>Store Name:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+	</array>
+	<key>Platforms</key>
+	<array>
+		<string>com.apple.platform.iphoneos</string>
+	</array>
+	<key>SortOrder</key>
+	<string>2</string>
+	<key>Summary</key>
+	<string>This generates a new Store protocol to access specific entities with CRUD methods.</string>
+</dict>
+</plist>

@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 
 public protocol ResponseObjectSerializable {
-    init?(json: JSON)
+    static func object(fromJSON json:JSON) -> AnyObject?
 }
 
 extension Alamofire.Request {
@@ -24,12 +24,19 @@ extension Alamofire.Request {
             switch result {
             case .Success(let value):
                 if let
-                    responseObject = T(json: JSON(value))
+                    responseObject = T.object(fromJSON: JSON(value)) as? T
                 {
                     return .Success(responseObject)
                 } else {
                     let failureReason = "JSON could not be serialized into response object: \(value)"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
+                    let error = NSError(
+                        domain: Error.Domain,
+                        code: Error.Code.JSONSerializationFailed.rawValue,
+                        userInfo: [
+                            NSLocalizedFailureReasonErrorKey: failureReason
+                        ]
+                    )
+                    
                     return .Failure(error)
                 }
             case .Failure(let error):

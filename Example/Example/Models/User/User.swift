@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class User {
+class User {
     let name:Name
     let email:String
     let phone:String
@@ -20,4 +20,5 @@ final class User {
         self.phone = phone
         self.imageURLString = imageURLString
     }
+    
 }

@@ -9,7 +9,8 @@
 import Foundation
 import SwiftyJSON
 
-extension Name:ResponseObjectSerializable {
+extension Name {
+    
     
     struct ParsingKeys {
         static let title = "title"
@@ -27,4 +28,5 @@ extension Name:ResponseObjectSerializable {
         
         self.init(title: title.capitalizedString, first: first.capitalizedString, last: last.capitalizedString)
     }
+    
 }

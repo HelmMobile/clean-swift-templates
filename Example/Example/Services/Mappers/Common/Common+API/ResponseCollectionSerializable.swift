@@ -25,9 +25,18 @@ extension Alamofire.Request {
                 if let response = response {
                     return .Success(T.collection(response: response, representation: value))
                 } else {
+                    
                     let failureReason = "Response collection could not be serialized due to nil response"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
+                    let error = NSError(
+                        domain: Error.Domain,
+                        code: Error.Code.JSONSerializationFailed.rawValue,
+                        userInfo: [
+                            NSLocalizedFailureReasonErrorKey: failureReason
+                        ]
+                    )
+                    
                     return .Failure(error)
+                    
                 }
             case .Failure(let error):
                 return .Failure(error)

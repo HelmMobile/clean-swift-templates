@@ -192,8 +192,8 @@
 		4921E9C81CBFB7AA00049DE8 /* Common+API */ = {
 			isa = PBXGroup;
 			children = (
-				4921E9C91CBFB7AA00049DE8 /* ResponseCollectionSerializable.swift */,
 				4921E9CA1CBFB7AA00049DE8 /* ResponseObjectSerializable.swift */,
+				4921E9C91CBFB7AA00049DE8 /* ResponseCollectionSerializable.swift */,
 			);
 			path = "Common+API";
 			sourceTree = "<group>";
