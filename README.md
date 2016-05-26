@@ -19,6 +19,7 @@ Here is a list of what is modified:
 Added features:
 * Awesome snippet to create usecases
 * New data-passing method
+* Added Store Template
 
 ## Snippet
 ![alt text](http://helm.cat/assets/github-images/usecase-snippet.gif "Use Case Snippet")
