@@ -44,7 +44,7 @@
 			<key>Identifier</key>
 			<string>entityLowercaseName</string>
 			<key>Name</key>
-			<string>Lowecase Name:</string>
+			<string>Lowercase Name:</string>
 			<key>Required</key>
 			<false/>
 			<key>NotPersisted</key>
