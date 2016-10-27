@@ -45,7 +45,7 @@ class ___FILEBASENAMEASIDENTIFIER___ViewController: UICollectionViewController, 
 
 //This should be on configurator but for some reason storyboard doesn't detect ViewController's name if placed there
 extension ___FILEBASENAMEASIDENTIFIER___ViewController: ___FILEBASENAMEASIDENTIFIER___PresenterOutput {
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         router.passDataToNextScene(segue)
     }
 }

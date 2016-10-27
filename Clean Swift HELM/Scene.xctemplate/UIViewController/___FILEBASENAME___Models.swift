@@ -13,6 +13,6 @@ import UIKit
 
 
 
-struct ___FILEBASENAMEASIDENTIFIER___Scene {
+struct ___FILEBASENAMEASIDENTIFIER___ {
     
 }
