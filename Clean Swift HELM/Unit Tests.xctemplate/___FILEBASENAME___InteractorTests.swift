@@ -12,42 +12,16 @@
 @testable import ___PROJECTNAME___
 import XCTest
 
-class ___FILEBASENAMEASIDENTIFIER___InteractorTests: XCTestCase
-{
-  // MARK: Subject under test
-  
-  var sut: ___FILEBASENAMEASIDENTIFIER___Interactor!
-  
-  // MARK: Test lifecycle
-  
-  override func setUp()
-  {
-    super.setUp()
-    setup___FILEBASENAMEASIDENTIFIER___Interactor()
-  }
-  
-  override func tearDown()
-  {
-    super.tearDown()
-  }
-  
-  // MARK: Test setup
-  
-  func setup___FILEBASENAMEASIDENTIFIER___Interactor()
-  {
-    sut = ___FILEBASENAMEASIDENTIFIER___Interactor()
-  }
-  
-  // MARK: Test doubles
-  
-  // MARK: Tests
-  
-  func testSomething()
-  {
-    // Given
+import Quick
+import Nimble
+
+class ___FILEBASENAMEASIDENTIFIER___InteractorTests: QuickSpec {
+    // MARK: Test lifecycle
+    var sut: ___FILEBASENAMEASIDENTIFIER___Interactor!
     
-    // When
-    
-    // Then
-  }
+    override func spec() {
+        beforeEach {
+            sut = ___FILEBASENAMEASIDENTIFIER___Interactor()
+        }
+    }
 }

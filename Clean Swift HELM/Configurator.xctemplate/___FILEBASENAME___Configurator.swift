@@ -18,25 +18,22 @@ extension ___FILEBASENAMEASIDENTIFIER___Interactor: ___FILEBASENAMEASIDENTIFIER_
 extension ___FILEBASENAMEASIDENTIFIER___Presenter: ___FILEBASENAMEASIDENTIFIER___InteractorOutput {
 }
 
-class ___FILEBASENAMEASIDENTIFIER___Configurator {
+final class ___FILEBASENAMEASIDENTIFIER___Configurator {
     // MARK: Object lifecycle
     
     class var sharedInstance: ___FILEBASENAMEASIDENTIFIER___Configurator {
         struct Static {
-            static var instance: ___FILEBASENAMEASIDENTIFIER___Configurator?
-            static var token: dispatch_once_t = 0
+            static let instance: ___FILEBASENAMEASIDENTIFIER___Configurator = ___FILEBASENAMEASIDENTIFIER___Configurator()
         }
         
-        dispatch_once(&Static.token) {
-            Static.instance = ___FILEBASENAMEASIDENTIFIER___Configurator()
-        }
-        
-        return Static.instance!
+        return Static.instance
     }
+    
+    private init() {}
     
     // MARK: Configuration
     
-    func configure(viewController: ___FILEBASENAMEASIDENTIFIER___ViewController) {
+    func configure(_ viewController: ___FILEBASENAMEASIDENTIFIER___ViewController) {
         
         let presenter = ___FILEBASENAMEASIDENTIFIER___Presenter()
         presenter.output = viewController
