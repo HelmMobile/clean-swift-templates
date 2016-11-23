@@ -14,11 +14,11 @@ import XCTest
 
 class ___FILEBASENAMEASIDENTIFIER___PresenterTests: XCTestCase
 {
-  // MARK: Subject under test
+  // MARK: - Subject under test
   
   var sut: ___FILEBASENAMEASIDENTIFIER___Presenter!
   
-  // MARK: Test lifecycle
+  // MARK: - Test lifecycle
   
   override func setUp()
   {
@@ -31,16 +31,16 @@ class ___FILEBASENAMEASIDENTIFIER___PresenterTests: XCTestCase
     super.tearDown()
   }
   
-  // MARK: Test setup
+  // MARK: - Test setup
   
   func setup___FILEBASENAMEASIDENTIFIER___Presenter()
   {
     sut = ___FILEBASENAMEASIDENTIFIER___Presenter()
   }
   
-  // MARK: Test doubles
+  // MARK: - Test doubles
   
-  // MARK: Tests
+  // MARK: - Tests
   
   func testSomething()
   {

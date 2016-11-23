@@ -60,7 +60,11 @@ struct BoundaryGenerator {
 
 private func temporaryFileURL() -> NSURL {
     let tempDirectoryURL = NSURL(fileURLWithPath: NSTemporaryDirectory())
+#if swift(>=2.3)
+    let directoryURL = tempDirectoryURL.URLByAppendingPathComponent("com.alamofire.test/multipart.form.data")!
+#else
     let directoryURL = tempDirectoryURL.URLByAppendingPathComponent("com.alamofire.test/multipart.form.data")
+#endif
 
     let fileManager = NSFileManager.defaultManager()
     do {
@@ -70,7 +74,11 @@ private func temporaryFileURL() -> NSURL {
     }
 
     let fileName = NSUUID().UUIDString
+#if swift(>=2.3)
+    let fileURL = directoryURL.URLByAppendingPathComponent(fileName)!
+#else
     let fileURL = directoryURL.URLByAppendingPathComponent(fileName)
+#endif
 
     return fileURL
 }
@@ -155,7 +163,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         multipartFormData.appendBodyPart(data: french, name: "french")
         multipartFormData.appendBodyPart(data: japanese, name: "japanese", mimeType: "text/plain")
         multipartFormData.appendBodyPart(data: emoji, name: "emoji", mimeType: "text/plain")
-        
+
         var encodedData: NSData?
 
         // When
@@ -808,7 +816,7 @@ class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
 
 class MultipartFormDataFailureTestCase: BaseTestCase {
     func testThatAppendingFileBodyPartWithInvalidLastPathComponentReturnsError() {
-        // Given 
+        // Given
         let fileURL = NSURL(string: "")!
         let multipartFormData = MultipartFormData()
         multipartFormData.appendBodyPart(fileURL: fileURL, name: "empty_data")

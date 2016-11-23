@@ -18,7 +18,7 @@ protocol ___FILEBASENAMEASIDENTIFIER___ViewControllerOutput {
     
 }
 
-class ___FILEBASENAMEASIDENTIFIER___ViewController: UIViewController, ___FILEBASENAMEASIDENTIFIER___ViewControllerInput {
+class ___FILEBASENAMEASIDENTIFIER___ViewController: UICollectionViewController, ___FILEBASENAMEASIDENTIFIER___ViewControllerInput {
     
     var output: ___FILEBASENAMEASIDENTIFIER___ViewControllerOutput!
     var router: ___FILEBASENAMEASIDENTIFIER___Router!
@@ -27,7 +27,7 @@ class ___FILEBASENAMEASIDENTIFIER___ViewController: UIViewController, ___FILEBAS
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        ___FILEBASENAMEASIDENTIFIER___Configurator.sharedInstance.configure(self)
+        ___FILEBASENAMEASIDENTIFIER___Configurator.sharedInstance.configure(viewController: self)
     }
     
     // MARK: View lifecycle
@@ -38,14 +38,14 @@ class ___FILEBASENAMEASIDENTIFIER___ViewController: UIViewController, ___FILEBAS
     
     // MARK: Event handling
     
+    
     // MARK: Display logic
     
 }
 
-
 //This should be on configurator but for some reason storyboard doesn't detect ViewController's name if placed there
 extension ___FILEBASENAMEASIDENTIFIER___ViewController: ___FILEBASENAMEASIDENTIFIER___PresenterOutput {
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         router.passDataToNextScene(segue)
     }
 }

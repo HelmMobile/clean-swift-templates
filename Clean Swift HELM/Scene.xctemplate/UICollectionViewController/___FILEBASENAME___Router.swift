@@ -38,7 +38,7 @@ class ___FILEBASENAMEASIDENTIFIER___Router: ___FILEBASENAMEASIDENTIFIER___Router
     
     // MARK: Communication
     
-    func passDataToNextScene(segue: UIStoryboardSegue) {
+    func passDataToNextScene(_ segue: UIStoryboardSegue) {
         // NOTE: Teach the router which scenes it can communicate with
         
     }

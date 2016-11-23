@@ -14,11 +14,11 @@ import XCTest
 
 class ___FILEBASENAMEASIDENTIFIER___InteractorTests: XCTestCase
 {
-  // MARK: Subject under test
+  // MARK: - Subject under test
   
   var sut: ___FILEBASENAMEASIDENTIFIER___Interactor!
   
-  // MARK: Test lifecycle
+  // MARK: - Test lifecycle
   
   override func setUp()
   {
@@ -31,16 +31,16 @@ class ___FILEBASENAMEASIDENTIFIER___InteractorTests: XCTestCase
     super.tearDown()
   }
   
-  // MARK: Test setup
+  // MARK: - Test setup
   
   func setup___FILEBASENAMEASIDENTIFIER___Interactor()
   {
     sut = ___FILEBASENAMEASIDENTIFIER___Interactor()
   }
   
-  // MARK: Test doubles
+  // MARK: - Test doubles
   
-  // MARK: Tests
+  // MARK: - Tests
   
   func testSomething()
   {

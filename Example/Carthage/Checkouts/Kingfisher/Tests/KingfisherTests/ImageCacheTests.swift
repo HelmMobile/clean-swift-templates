@@ -164,7 +164,8 @@ class ImageCacheTests: XCTestCase {
         
         cache.retrieveImageForKey(URLString, options: nil, completionHandler: { (image, type) -> () in
             XCTAssertNil(image, "Should not be cached yet")
-            XCTAssertEqual(type, nil)
+            
+            XCTAssertEqual(type, CacheType.None)
 
             self.cache.storeImage(testImage, forKey: URLString, toDisk: true) { () -> () in
                 self.cache.retrieveImageForKey(URLString, options: nil, completionHandler: { (image, type) -> () in
@@ -230,14 +231,14 @@ class ImageCacheTests: XCTestCase {
         let expectation = self.expectationWithDescription("wait for retrieving image")
         self.cache.storeImage(testImage, originalData: testImageData, forKey: testKeys[0], toDisk: true) { () -> () in
             self.measureBlock({ () -> Void in
-                for _ in 1 ..< 1000 {
+                for _ in 1 ..< 200 {
                     self.cache.retrieveImageInDiskCacheForKey(testKeys[0])
                 }
             })
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(20, handler: nil)
+        self.waitForExpectationsWithTimeout(30, handler: nil)
     }
     
     func testCleanDiskCacheNotification() {

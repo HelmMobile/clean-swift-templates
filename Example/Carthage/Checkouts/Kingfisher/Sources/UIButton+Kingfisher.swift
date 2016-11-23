@@ -45,14 +45,15 @@ extension UIButton {
      - note: Both the `progressBlock` and `completionHandler` will be invoked in main thread.
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
      */
-    public func kf_setImageWithURL(URL: NSURL,
+    public func kf_setImageWithURL(URL: NSURL?,
                                    forState state: UIControlState,
                                             placeholderImage: UIImage? = nil,
                                             optionsInfo: KingfisherOptionsInfo? = nil,
                                             progressBlock: DownloadProgressBlock? = nil,
                                             completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
-        return kf_setImageWithResource(Resource(downloadURL: URL),
+        let resource = URL.map { Resource(downloadURL: $0) }
+        return kf_setImageWithResource(resource,
                                        forState: state,
                                        placeholderImage: placeholderImage,
                                        optionsInfo: optionsInfo,
@@ -76,7 +77,7 @@ extension UIButton {
     - note: Both the `progressBlock` and `completionHandler` will be invoked in main thread.
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
     */
-    public func kf_setImageWithResource(resource: Resource,
+    public func kf_setImageWithResource(resource: Resource?,
                                   forState state: UIControlState,
                                 placeholderImage: UIImage? = nil,
                                      optionsInfo: KingfisherOptionsInfo? = nil,
@@ -84,6 +85,12 @@ extension UIButton {
                                completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
         setImage(placeholderImage, forState: state)
+        
+        guard let resource = resource else {
+            completionHandler?(image: nil, error: nil, cacheType: .None, imageURL: nil)
+            return RetrieveImageTask.emptyTask
+        }
+        
         kf_setWebURL(resource.downloadURL, forState: state)
         let task = KingfisherManager.sharedManager.retrieveImageWithResource(resource, optionsInfo: optionsInfo,
             progressBlock: { receivedSize, totalSize in
@@ -93,15 +100,17 @@ extension UIButton {
             },
             completionHandler: {[weak self] image, error, cacheType, imageURL in
                 dispatch_async_safely_to_main_queue {
-                    if let sSelf = self {
-                        
-                        sSelf.kf_setImageTask(nil)
-                        
-                        if imageURL == sSelf.kf_webURLForState(state) && image != nil {
-                            sSelf.setImage(image, forState: state)
-                        }
-                        completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
+                    guard let sSelf = self where imageURL == sSelf.kf_webURLForState(state) else {
+                        return
                     }
+                    
+                    sSelf.kf_setImageTask(nil)
+                    
+                    if image != nil {
+                        sSelf.setImage(image, forState: state)
+                    }
+                    
+                    completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
                 }
             })
         
@@ -172,14 +181,15 @@ extension UIButton {
      - note: Both the `progressBlock` and `completionHandler` will be invoked in main thread.
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
      */
-    public func kf_setBackgroundImageWithURL(URL: NSURL,
+    public func kf_setBackgroundImageWithURL(URL: NSURL?,
                                              forState state: UIControlState,
                                                       placeholderImage: UIImage? = nil,
                                                       optionsInfo: KingfisherOptionsInfo? = nil,
                                                       progressBlock: DownloadProgressBlock? = nil,
                                                       completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
-        return kf_setBackgroundImageWithResource(Resource(downloadURL: URL),
+        let resource = URL.map { Resource(downloadURL: $0) }
+        return kf_setBackgroundImageWithResource(resource,
                                                  forState: state,
                                                  placeholderImage: placeholderImage,
                                                  optionsInfo: optionsInfo,
@@ -204,7 +214,7 @@ extension UIButton {
     - note: Both the `progressBlock` and `completionHandler` will be invoked in main thread.
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
     */
-    public func kf_setBackgroundImageWithResource(resource: Resource,
+    public func kf_setBackgroundImageWithResource(resource: Resource?,
                                             forState state: UIControlState,
                                           placeholderImage: UIImage? = nil,
                                                optionsInfo: KingfisherOptionsInfo? = nil,
@@ -212,6 +222,12 @@ extension UIButton {
                                          completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
         setBackgroundImage(placeholderImage, forState: state)
+        
+        guard let resource = resource else {
+            completionHandler?(image: nil, error: nil, cacheType: .None, imageURL: nil)
+            return RetrieveImageTask.emptyTask
+        }
+        
         kf_setBackgroundWebURL(resource.downloadURL, forState: state)
         let task = KingfisherManager.sharedManager.retrieveImageWithResource(resource, optionsInfo: optionsInfo,
             progressBlock: { receivedSize, totalSize in
@@ -221,15 +237,16 @@ extension UIButton {
             },
             completionHandler: { [weak self] image, error, cacheType, imageURL in
                 dispatch_async_safely_to_main_queue {
-                    if let sSelf = self {
-                        
-                        sSelf.kf_setBackgroundImageTask(nil)
-                        
-                        if imageURL == sSelf.kf_backgroundWebURLForState(state) && image != nil {
-                            sSelf.setBackgroundImage(image, forState: state)
-                        }
-                        completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
+                    guard let sSelf = self where imageURL == sSelf.kf_backgroundWebURLForState(state) else {
+                        return
                     }
+                    
+                    sSelf.kf_setBackgroundImageTask(nil)
+                        
+                    if image != nil {
+                        sSelf.setBackgroundImage(image, forState: state)
+                    }
+                    completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
                 }
             })
         
