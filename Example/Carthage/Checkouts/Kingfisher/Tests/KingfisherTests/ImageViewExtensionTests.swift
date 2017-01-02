@@ -340,7 +340,7 @@ class ImageViewExtensionTests: XCTestCase {
         waitForExpectationsWithTimeout(5, handler: nil)
     }
     
-    func testImageDownalodMultipleCaches() {
+    func testImageDownloadMultipleCaches() {
         
         let cache1 = ImageCache(name: "cache1")
         let cache2 = ImageCache(name: "cache2")
@@ -383,15 +383,15 @@ class ImageViewExtensionTests: XCTestCase {
     }
     
     func testIndicatorViewExisting() {
-        imageView.kf_showIndicatorWhenLoading = true
-        XCTAssertNotNil(imageView.kf_indicator, "The indicator view should exist when showIndicatorWhenLoading is true")
-        
-        imageView.kf_showIndicatorWhenLoading = false
-        XCTAssertNil(imageView.kf_indicator, "The indicator view should be removed when showIndicatorWhenLoading set to false")
+        imageView.kf_indicatorType = .Activity
+        XCTAssertNotNil(imageView.kf_indicator, "The indicator should exist when indicatorType is different than .None")
+
+        imageView.kf_indicatorType = .None
+        XCTAssertNil(imageView.kf_indicator, "The indicator should be removed when indicatorType is .None")
     }
     
     func testIndicatorViewAnimating() {
-        imageView.kf_showIndicatorWhenLoading = true
+        imageView.kf_indicatorType = .Activity
         
         let expectation = expectationWithDescription("wait for downloading image")
         
@@ -403,11 +403,11 @@ class ImageViewExtensionTests: XCTestCase {
             
             let indicator = self.imageView.kf_indicator
             XCTAssertNotNil(indicator, "The indicator view should exist when showIndicatorWhenLoading is true")
-            XCTAssertFalse(indicator!.hidden, "The indicator should be shown and animating when loading")
+            XCTAssertFalse(indicator!.view.hidden, "The indicator should be shown and animating when loading")
 
         }) { (image, error, cacheType, imageURL) -> () in
             let indicator = self.imageView.kf_indicator
-            XCTAssertTrue(indicator!.hidden, "The indicator should stop and hidden after loading")
+            XCTAssertTrue(indicator!.view.hidden, "The indicator should stop and hidden after loading")
             expectation.fulfill()
         }
         
@@ -468,9 +468,27 @@ class ImageViewExtensionTests: XCTestCase {
         }
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 0.1)), dispatch_get_main_queue()) { () -> Void in
-            XCTAssertTrue(task1Complete, "Task 1 should be completed.")
+            XCTAssertFalse(task1Complete, "Task 1 should not be completed since task 2 overrides it.")
             XCTAssertTrue(task2Complete, "Task 2 should be completed.")
 
+            expectation.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(5, handler: nil)
+    }
+    
+    func testSettingNilURL() {
+        let expectation = expectationWithDescription("wait for downloading image")
+        
+        let URL: NSURL? = nil
+        imageView.kf_setImageWithURL(URL, placeholderImage: nil, optionsInfo: nil, progressBlock: { (receivedSize, totalSize) -> () in
+            XCTFail("Progress block should not be called.")
+        }) { (image, error, cacheType, imageURL) -> () in
+            XCTAssertNil(image)
+            XCTAssertNil(error)
+            XCTAssertEqual(cacheType, CacheType.None)
+            XCTAssertNil(imageURL)
+            
             expectation.fulfill()
         }
         

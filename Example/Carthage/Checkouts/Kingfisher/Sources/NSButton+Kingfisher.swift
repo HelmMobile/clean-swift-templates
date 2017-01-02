@@ -48,13 +48,14 @@ extension NSButton {
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
      */
 
-    public func kf_setImageWithURL(URL: NSURL,
+    public func kf_setImageWithURL(URL: NSURL?,
                                    placeholderImage: Image? = nil,
                                    optionsInfo: KingfisherOptionsInfo? = nil,
                                    progressBlock: DownloadProgressBlock? = nil,
                                    completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
-        return kf_setImageWithResource(Resource(downloadURL: URL),
+        let resource = URL.map { Resource(downloadURL: $0) }
+        return kf_setImageWithResource(resource,
                                        placeholderImage: placeholderImage,
                                        optionsInfo: optionsInfo,
                                        progressBlock: progressBlock,
@@ -76,13 +77,19 @@ extension NSButton {
      - note: Both the `progressBlock` and `completionHandler` will be invoked in main thread.
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
      */
-    public func kf_setImageWithResource(resource: Resource,
+    public func kf_setImageWithResource(resource: Resource?,
                                         placeholderImage: Image? = nil,
                                         optionsInfo: KingfisherOptionsInfo? = nil,
                                         progressBlock: DownloadProgressBlock? = nil,
                                         completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
         image = placeholderImage
+        
+        guard let resource = resource else {
+            completionHandler?(image: nil, error: nil, cacheType: .None, imageURL: nil)
+            return RetrieveImageTask.emptyTask
+        }
+        
         kf_setWebURL(resource.downloadURL)
         let task = KingfisherManager.sharedManager.retrieveImageWithResource(resource, optionsInfo: optionsInfo,
              progressBlock: { receivedSize, totalSize in
@@ -93,18 +100,15 @@ extension NSButton {
              completionHandler: {[weak self] image, error, cacheType, imageURL in
                 dispatch_async_safely_to_main_queue {
                     guard let sSelf = self where imageURL == sSelf.kf_webURL else {
-                        completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
                         return
                     }
 
                     sSelf.kf_setImageTask(nil)
 
-                    guard let image = image else {
-                        completionHandler?(image: nil, error: error, cacheType: cacheType, imageURL: imageURL)
-                        return
+                    if image != nil {
+                        sSelf.image = image
                     }
-
-                    sSelf.image = image
+                    
                     completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
                 }
             })
@@ -133,7 +137,7 @@ extension NSButton {
     private var kf_imageTask: RetrieveImageTask? {
         return objc_getAssociatedObject(self, &imageTaskKey) as? RetrieveImageTask
     }
-    
+
     private func kf_setImageTask(task: RetrieveImageTask?) {
         objc_setAssociatedObject(self, &imageTaskKey, task, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
@@ -159,13 +163,14 @@ extension NSButton {
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
      */
 
-    public func kf_setAlternateImageWithURL(URL: NSURL,
+    public func kf_setAlternateImageWithURL(URL: NSURL?,
                                             placeholderImage: Image? = nil,
                                             optionsInfo: KingfisherOptionsInfo? = nil,
                                             progressBlock: DownloadProgressBlock? = nil,
                                             completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
-        return kf_setAlternateImageWithResource(Resource(downloadURL: URL),
+        let resource = URL.map { Resource(downloadURL: $0) }
+        return kf_setAlternateImageWithResource(resource,
                                                 placeholderImage: placeholderImage,
                                                 optionsInfo: optionsInfo,
                                                 progressBlock: progressBlock,
@@ -187,13 +192,19 @@ extension NSButton {
      - note: Both the `progressBlock` and `completionHandler` will be invoked in main thread.
      The `CallbackDispatchQueue` specified in `optionsInfo` will not be used in callbacks of this method.
      */
-    public func kf_setAlternateImageWithResource(resource: Resource,
+    public func kf_setAlternateImageWithResource(resource: Resource?,
                                                  placeholderImage: Image? = nil,
                                                  optionsInfo: KingfisherOptionsInfo? = nil,
                                                  progressBlock: DownloadProgressBlock? = nil,
                                                  completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
         alternateImage = placeholderImage
+        
+        guard let resource = resource else {
+            completionHandler?(image: nil, error: nil, cacheType: .None, imageURL: nil)
+            return RetrieveImageTask.emptyTask
+        }
+        
         kf_setAlternateWebURL(resource.downloadURL)
         let task = KingfisherManager.sharedManager.retrieveImageWithResource(resource, optionsInfo: optionsInfo,
              progressBlock: { receivedSize, totalSize in
@@ -204,7 +215,6 @@ extension NSButton {
              completionHandler: {[weak self] image, error, cacheType, imageURL in
                 dispatch_async_safely_to_main_queue {
                     guard let sSelf = self where imageURL == sSelf.kf_alternateWebURL else {
-                        completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
                         return
                     }
                     

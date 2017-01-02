@@ -490,15 +490,27 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
     let managerWithAcceptLanguageHeader: Manager = {
         var headers = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
         headers["Accept-Language"] = "en-US"
-        
+
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.HTTPAdditionalHeaders = headers
-        
+
         let manager = Manager(configuration: configuration)
         manager.startRequestsImmediately = false
         return manager
     }()
-    
+
+    let managerWithContentTypeHeader: Manager = {
+        var headers = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
+        headers["Content-Type"] = "application/json"
+
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.HTTPAdditionalHeaders = headers
+
+        let manager = Manager(configuration: configuration)
+        manager.startRequestsImmediately = false
+        return manager
+    }()
+
     let managerDisallowingCookies: Manager = {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.HTTPShouldSetCookies = false
@@ -580,17 +592,11 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
         XCTAssertEqual(components[0..<3], ["$", "curl", "-i"], "components should be equal")
         XCTAssertEqual(components[3..<5], ["-X", "POST"], "command should contain explicit -X flag")
 
-        XCTAssertTrue(
-            request.debugDescription.rangeOfString("-H \"Content-Type: application/json\"") != nil,
-            "command should contain 'application/json' Content-Type"
-        )
-
-        let expectedBody = "-d \"{\\\"f'oo\\\":\\\"ba'r\\\",\\\"fo\\\\\\\"o\\\":\\\"b\\\\\\\"ar\\\",\\\"foo\\\":\\\"bar\\\"}\""
-
-        XCTAssertTrue(
-            request.debugDescription.rangeOfString(expectedBody) != nil,
-            "command data should contain JSON encoded parameters"
-        )
+        XCTAssertNotNil(request.debugDescription.rangeOfString("-H \"Content-Type: application/json\""), "command should contain Content-Type header")
+        XCTAssertNotNil(request.debugDescription.rangeOfString("-d \"{"), "command should contain body parameter")
+        XCTAssertNotNil(request.debugDescription.rangeOfString("\\\"f'oo\\\":\\\"ba'r\\\""), "command should contain JSON parameters")
+        XCTAssertNotNil(request.debugDescription.rangeOfString("\\\"fo\\\\\\\"o\\\":\\\"b\\\\\\\"ar\\\""), "command should contain JSON parameters")
+        XCTAssertNotNil(request.debugDescription.rangeOfString("\\\"foo\\\":\\\"bar\\"), "command should contain JSON parameters")
 
         XCTAssertEqual(components.last ?? "", "\"\(URLString)\"", "URL component should be equal")
     }
@@ -641,6 +647,53 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
         // Then
         let cookieComponents = components.filter { $0 == "-b" }
         XCTAssertTrue(cookieComponents.isEmpty, "command should not contain -b flag")
+    }
+
+    func testMultipartFormDataRequestWithDuplicateHeadersDebugDescription() {
+        // Given
+        let URLString = "https://httpbin.org/post"
+        let japanese = "日本語".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+        let expectation = expectationWithDescription("multipart form data encoding should succeed")
+
+        var request: Request?
+        var components: [String] = []
+
+        // When
+        managerWithContentTypeHeader.upload(
+            .POST,
+            URLString,
+            multipartFormData: { multipartFormData in
+                multipartFormData.appendBodyPart(data: japanese, name: "japanese")
+            },
+            encodingCompletion: { result in
+                switch result {
+                case .Success(let upload, _, _):
+                    request = upload
+                    components = self.cURLCommandComponents(upload)
+
+                    expectation.fulfill()
+                case .Failure:
+                    expectation.fulfill()
+                }
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        debugPrint(request!)
+
+        // Then
+        XCTAssertEqual(components[0..<3], ["$", "curl", "-i"], "components should be equal")
+        XCTAssertTrue(components.contains("-X"), "command should contain explicit -X flag")
+        XCTAssertEqual(components.last ?? "", "\"\(URLString)\"", "URL component should be equal")
+
+        let tokens = request.debugDescription.componentsSeparatedByString("Content-Type:")
+        XCTAssertTrue(tokens.count == 2, "command should contain a single Content-Type header")
+
+        XCTAssertTrue(
+            request.debugDescription.rangeOfString("-H \"Content-Type: multipart/form-data;") != nil,
+            "command should contain Content-Type header starting with 'multipart/form-data;'"
+        )
     }
 
     func testThatRequestWithInvalidURLDebugDescription() {

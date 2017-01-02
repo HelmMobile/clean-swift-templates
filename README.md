@@ -122,7 +122,7 @@ To uninstall the Clean Swift Xcode templates and snippets, run:
 make uninstall
 ```
 
-
+###### Note: Example is currently not converted to swift 3 but templates are
 To try the Example project you need carthage:
 ```
 brew update

@@ -131,7 +131,7 @@ class SessionDelegateTestCase: BaseTestCase {
 
     func testThatRequestWillPerformHTTPRedirectionByDefault() {
         // Given
-        let redirectURLString = "https://www.apple.com"
+        let redirectURLString = "https://www.apple.com/"
         let URLString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
 
         let expectation = expectationWithDescription("Request should redirect to \(redirectURLString)")
@@ -201,7 +201,7 @@ class SessionDelegateTestCase: BaseTestCase {
 
     func testThatTaskOverrideClosureCanPerformHTTPRedirection() {
         // Given
-        let redirectURLString = "https://www.apple.com"
+        let redirectURLString = "https://www.apple.com/"
         let URLString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
 
         let expectation = expectationWithDescription("Request should redirect to \(redirectURLString)")
@@ -243,7 +243,7 @@ class SessionDelegateTestCase: BaseTestCase {
 
     func testThatTaskOverrideClosureWithCompletionCanPerformHTTPRedirection() {
         // Given
-        let redirectURLString = "https://www.apple.com"
+        let redirectURLString = "https://www.apple.com/"
         let URLString = "https://httpbin.org/redirect-to?url=\(redirectURLString)"
 
         let expectation = expectationWithDescription("Request should redirect to \(redirectURLString)")
@@ -518,7 +518,7 @@ class SessionDelegateTestCase: BaseTestCase {
         XCTAssertNotNil(response?.response, "response should not be nil")
         XCTAssertNotNil(response?.data, "data should not be nil")
         XCTAssertTrue(response?.result.isSuccess ?? false, "response result should be a success")
-        
+
         if let
             JSON = response?.result.value as? [String: AnyObject],
             headers = JSON["headers"] as? [String: String]

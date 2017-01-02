@@ -21,18 +21,9 @@ extension ___FILEBASENAMEASIDENTIFIER___Presenter: ___FILEBASENAMEASIDENTIFIER__
 class ___FILEBASENAMEASIDENTIFIER___Configurator {
     // MARK: Object lifecycle
     
-    class var sharedInstance: ___FILEBASENAMEASIDENTIFIER___Configurator {
-        struct Static {
-            static var instance: ___FILEBASENAMEASIDENTIFIER___Configurator?
-            static var token: dispatch_once_t = 0
-        }
-        
-        dispatch_once(&Static.token) {
-            Static.instance = ___FILEBASENAMEASIDENTIFIER___Configurator()
-        }
-        
-        return Static.instance!
-    }
+    static let sharedInstance = ___FILEBASENAMEASIDENTIFIER___Configurator()
+    
+    private init() {}
     
     // MARK: Configuration
     

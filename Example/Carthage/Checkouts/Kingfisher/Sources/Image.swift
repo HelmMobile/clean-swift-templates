@@ -153,7 +153,7 @@ extension Image {
         let normalizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
     
-        return normalizedImage
+        return normalizedImage ?? self
     }
     
     static func kf_animatedImageWithImages(images: [Image], duration: NSTimeInterval) -> Image? {
@@ -168,7 +168,11 @@ func ImagePNGRepresentation(image: Image) -> NSData? {
 #if os(OSX)
     if let cgimage = image.CGImage {
         let rep = NSBitmapImageRep(CGImage: cgimage)
+        #if swift(>=2.3)
+        return rep.representationUsingType(.PNG, properties:[:])
+        #else
         return rep.representationUsingType(.NSPNGFileType, properties:[:])
+        #endif
     }
     return nil
 #else
@@ -180,7 +184,11 @@ func ImagePNGRepresentation(image: Image) -> NSData? {
 func ImageJPEGRepresentation(image: Image, _ compressionQuality: CGFloat) -> NSData? {
 #if os(OSX)
     let rep = NSBitmapImageRep(CGImage: image.CGImage)
-    return rep.representationUsingType(.NSJPEGFileType, properties: [NSImageCompressionFactor: compressionQuality])
+    #if swift(>=2.3)
+        return rep.representationUsingType(.JPEG, properties: [NSImageCompressionFactor: compressionQuality])
+    #else
+        return rep.representationUsingType(.NSJPEGFileType, properties: [NSImageCompressionFactor: compressionQuality])
+    #endif
 #else
     return UIImageJPEGRepresentation(image, compressionQuality)
 #endif
@@ -232,7 +240,20 @@ extension Image {
     static func kf_animatedImageWithGIFData(gifData data: NSData, scale: CGFloat, duration: NSTimeInterval, preloadAll: Bool) -> Image? {
         
         func decodeFromSource(imageSource: CGImageSource, options: NSDictionary) -> ([Image], NSTimeInterval)? {
-
+            
+            //Calculates frame duration for a gif frame out of the kCGImagePropertyGIFDictionary dictionary
+            func frameDuration(fromGifInfo gifInfo: NSDictionary) -> Double {
+                let gifDefaultFrameDuration = 0.100
+                
+                let unclampedDelayTime = gifInfo[kCGImagePropertyGIFUnclampedDelayTime as String] as? NSNumber
+                let delayTime = gifInfo[kCGImagePropertyGIFDelayTime as String] as? NSNumber
+                let duration = unclampedDelayTime ?? delayTime
+                
+                guard let frameDuration = duration else { return gifDefaultFrameDuration }
+                
+                return frameDuration.doubleValue > 0.011 ? frameDuration.doubleValue : gifDefaultFrameDuration
+            }
+            
             let frameCount = CGImageSourceGetCount(imageSource)
             var images = [Image]()
             var gifDuration = 0.0
@@ -248,12 +269,11 @@ extension Image {
                 } else {
                     // Animated GIF
                     guard let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, i, nil),
-                        gifInfo = (properties as NSDictionary)[kCGImagePropertyGIFDictionary as String] as? NSDictionary,
-                        frameDuration = (gifInfo[kCGImagePropertyGIFDelayTime as String] as? NSNumber) else
+                        gifInfo = (properties as NSDictionary)[kCGImagePropertyGIFDictionary as String] as? NSDictionary else
                     {
                         return nil
                     }
-                    gifDuration += frameDuration.doubleValue
+                    gifDuration += frameDuration(fromGifInfo: gifInfo)
                 }
                 
                 images.append(Image.kf_imageWithCGImage(imageRef, scale: scale, refImage: nil))
@@ -342,9 +362,8 @@ extension Image {
         let imageRef = self.CGImage
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue).rawValue
-        
-        let context = CGBitmapContextCreate(nil, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef), 8, 0, colorSpace, bitmapInfo)
-        if let context = context {
+
+        if let imageRef = imageRef, context = CGBitmapContextCreate(nil, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef), 8, 0, colorSpace, bitmapInfo) {
             let rect = CGRect(x: 0, y: 0, width: CGImageGetWidth(imageRef), height: CGImageGetHeight(imageRef))
             CGContextDrawImage(context, rect, imageRef)
             let decompressedImageRef = CGBitmapContextCreateImage(context)
