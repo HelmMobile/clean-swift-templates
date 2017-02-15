@@ -12,17 +12,17 @@ import Foundation
 
 protocol ___VARIABLE_entityName___Store {
     func get___VARIABLE_entityPluralName___(completion: ___VARIABLE_entityName___StoreGet___VARIABLE_entityPluralName___CompletionHandler)
-    func get___VARIABLE_entityName___(id id: String, completion: ___VARIABLE_entityName___StoreGet___VARIABLE_entityName___CompletionHandler)
+    func get___VARIABLE_entityName___(withId id: String, completion: ___VARIABLE_entityName___StoreGet___VARIABLE_entityName___CompletionHandler)
     func create___VARIABLE_entityName___(___VARIABLE_entityLowercaseName___ToCreate ___VARIABLE_entityLowercaseName___: ___VARIABLE_entityName___, completion: ___VARIABLE_entityName___StoreCreate___VARIABLE_entityName___CompletionHandler)
     func update___VARIABLE_entityName___(___VARIABLE_entityLowercaseName___ToUpdate ___VARIABLE_entityLowercaseName___: ___VARIABLE_entityName___, completion: ___VARIABLE_entityName___StoreUpdate___VARIABLE_entityName___CompletionHandler)
-    func delete___VARIABLE_entityName___(id id: String, completion: ___VARIABLE_entityName___StoreDelete___VARIABLE_entityName___CompletionHandler)
+    func delete___VARIABLE_entityName___(withId id: String, completion: ___VARIABLE_entityName___StoreDelete___VARIABLE_entityName___CompletionHandler)
 }
 
-typealias ___VARIABLE_entityName___StoreGet___VARIABLE_entityPluralName___CompletionHandler = (result: ___VARIABLE_entityName___StoreResult<[___VARIABLE_entityName___]>) -> Void
-typealias ___VARIABLE_entityName___StoreGet___VARIABLE_entityName___CompletionHandler = (result: ___VARIABLE_entityName___StoreResult<___VARIABLE_entityName___>) -> Void
-typealias ___VARIABLE_entityName___StoreCreate___VARIABLE_entityName___CompletionHandler = (result: ___VARIABLE_entityName___StoreEmptyResult) -> Void
-typealias ___VARIABLE_entityName___StoreUpdate___VARIABLE_entityName___CompletionHandler = (result: ___VARIABLE_entityName___StoreEmptyResult) -> Void
-typealias ___VARIABLE_entityName___StoreDelete___VARIABLE_entityName___CompletionHandler = (result: ___VARIABLE_entityName___StoreEmptyResult) -> Void
+typealias ___VARIABLE_entityName___StoreGet___VARIABLE_entityPluralName___CompletionHandler = (___VARIABLE_entityName___StoreResult<[___VARIABLE_entityName___]>) -> Void
+typealias ___VARIABLE_entityName___StoreGet___VARIABLE_entityName___CompletionHandler = (___VARIABLE_entityName___StoreResult<___VARIABLE_entityName___>) -> Void
+typealias ___VARIABLE_entityName___StoreCreate___VARIABLE_entityName___CompletionHandler = (___VARIABLE_entityName___StoreEmptyResult) -> Void
+typealias ___VARIABLE_entityName___StoreUpdate___VARIABLE_entityName___CompletionHandler = (___VARIABLE_entityName___StoreEmptyResult) -> Void
+typealias ___VARIABLE_entityName___StoreDelete___VARIABLE_entityName___CompletionHandler = (___VARIABLE_entityName___StoreEmptyResult) -> Void
 
 enum ___VARIABLE_entityName___StoreResult<U> {
     case Success(result: U)
@@ -34,7 +34,7 @@ enum ___VARIABLE_entityName___StoreEmptyResult {
     case Failure(error: ___VARIABLE_entityName___StoreError)
 }
 
-enum ___VARIABLE_entityName___StoreError: Equatable, ErrorType {
+enum ___VARIABLE_entityName___StoreError: Equatable, Error {
     case CannotGet(String)
     case CannotCreate(String)
     case CannotUpdate(String)
