@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 16/1/19.
 //
-//  Copyright (c) 2016 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -37,16 +37,17 @@ class InterfaceController: WKInterfaceController {
     
     var currentIndex: Int?
     
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         
         currentIndex = count
         count += 1
     }
     
     func refreshImage() {
-        let URL = NSURL(string: "https://raw.githubusercontent.com/onevcat/Kingfisher/master/images/kingfisher-\(currentIndex! + 1).jpg")!
-        KingfisherManager.sharedManager.retrieveImageWithURL(URL, optionsInfo: nil, progressBlock: nil) { (image, error, cacheType, imageURL) -> () in
+        let url = URL(string: "https://raw.githubusercontent.com/onevcat/Kingfisher/master/images/kingfisher-\(currentIndex! + 1).jpg")!
+        _ = KingfisherManager.shared.retrieveImage(with: url, options: nil, progressBlock: nil) { (image, error, cacheType, imageURL) -> () in
             self.interfaceImage.setImage(image)
         }
     }

@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  Example
 //
-//  Created by Miguel Berrocal Gómez on 13/04/16.
-//  Copyright © 2016 HELM S.C.P. All rights reserved.
+//  Created by Joel on 05/04/2017.
+//  Copyright © 2017 HELM S.C.P. All rights reserved.
 //
 
 import UIKit

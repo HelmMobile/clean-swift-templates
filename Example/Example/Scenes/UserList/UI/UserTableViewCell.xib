@@ -1,47 +1,77 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
-        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="userCell" rowHeight="76" id="KGk-i7-Jjw" customClass="UserTableViewCell" customModule="Example" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="75"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="userCell" rowHeight="80" id="Evu-ci-Mdt" customClass="UserTableViewCell" customModule="Example" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Evu-ci-Mdt" id="ckU-nU-mzV">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="keg-yx-aMc">
-                        <rect key="frame" x="8" y="0.0" width="75" height="75"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cYR-9a-qKX">
+                        <rect key="frame" x="10" y="10" width="60" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="keg-yx-aMc" secondAttribute="height" id="89D-nM-cfm"/>
+                            <constraint firstAttribute="width" secondItem="cYR-9a-qKX" secondAttribute="height" id="4Rm-uN-HOB"/>
+                            <constraint firstAttribute="height" constant="60" id="bMa-mx-Gpa"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="30"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEM-W7-qZZ">
-                        <rect key="frame" x="91" y="27" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dap-01-qcH">
+                        <rect key="frame" x="86" y="19" width="240" height="42"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-7U-Vc3" userLabel="User email">
+                                <rect key="frame" x="0.0" y="25" width="240" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.58435880829999998" green="0.58435880829999998" blue="0.58435880829999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwS-J1-uZT">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.28554080310000002" green="0.28554080310000002" blue="0.28554080310000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Zb5-7U-Vc3" firstAttribute="leading" secondItem="dap-01-qcH" secondAttribute="leading" id="Fw9-Ex-4za"/>
+                            <constraint firstAttribute="trailing" secondItem="uwS-J1-uZT" secondAttribute="trailing" id="MYM-wN-yrg"/>
+                            <constraint firstAttribute="bottom" secondItem="Zb5-7U-Vc3" secondAttribute="bottom" id="W8b-cL-sGE"/>
+                            <constraint firstItem="Zb5-7U-Vc3" firstAttribute="top" secondItem="uwS-J1-uZT" secondAttribute="bottom" constant="4" id="ePT-l0-ICi"/>
+                            <constraint firstItem="uwS-J1-uZT" firstAttribute="top" secondItem="dap-01-qcH" secondAttribute="top" id="jG8-bg-44K"/>
+                            <constraint firstAttribute="trailing" secondItem="Zb5-7U-Vc3" secondAttribute="trailing" id="myh-i9-qX0"/>
+                            <constraint firstItem="uwS-J1-uZT" firstAttribute="leading" secondItem="dap-01-qcH" secondAttribute="leading" id="s1q-PF-lgm"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="SEM-W7-qZZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CkW-lM-jqI"/>
-                    <constraint firstItem="keg-yx-aMc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pJ3-e8-Zqx"/>
-                    <constraint firstItem="SEM-W7-qZZ" firstAttribute="leading" secondItem="keg-yx-aMc" secondAttribute="trailing" constant="8" id="pR0-Yl-iw1"/>
-                    <constraint firstItem="keg-yx-aMc" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="q1z-Hm-bOg"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="keg-yx-aMc" secondAttribute="leading" id="tGP-TV-P4j"/>
+                    <constraint firstItem="dap-01-qcH" firstAttribute="centerY" secondItem="ckU-nU-mzV" secondAttribute="centerY" id="3JJ-od-gaO"/>
+                    <constraint firstItem="cYR-9a-qKX" firstAttribute="centerY" secondItem="ckU-nU-mzV" secondAttribute="centerY" id="EfP-UT-Y4U"/>
+                    <constraint firstItem="dap-01-qcH" firstAttribute="leading" secondItem="cYR-9a-qKX" secondAttribute="trailing" constant="16" id="El4-ub-mWS"/>
+                    <constraint firstAttribute="trailing" secondItem="dap-01-qcH" secondAttribute="trailing" constant="16" id="uql-es-Gvh"/>
+                    <constraint firstItem="cYR-9a-qKX" firstAttribute="leading" secondItem="ckU-nU-mzV" secondAttribute="leading" constant="10" id="x7z-vE-kI2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="nameLabel" destination="SEM-W7-qZZ" id="Mkb-fd-txP"/>
-                <outlet property="userImageView" destination="keg-yx-aMc" id="kKE-X4-d96"/>
+                <outlet property="userEmail" destination="Zb5-7U-Vc3" id="ybP-u8-Nbh"/>
+                <outlet property="userImage" destination="cYR-9a-qKX" id="OgF-hg-ae4"/>
+                <outlet property="userName" destination="uwS-J1-uZT" id="p3v-8L-ila"/>
             </connections>
-            <point key="canvasLocation" x="381" y="287"/>
         </tableViewCell>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
     </objects>
 </document>

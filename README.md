@@ -51,7 +51,7 @@ protocol RouterDataDestination:class {
 - The RouterDataDestination protocol is used to determine what data has to be received and handled by this scene.
 
 So following the example before we would add this in the source Router:
-```swift 
+```swift
 protocol UserListRouterDataSource:class {
     var selectedUser:User! { get }
 }
@@ -131,7 +131,7 @@ brew install carthage
 
 Then run
 ```
-carthage update
+./cartupdate.sh
 ```
 
 In the project folder (/Example)

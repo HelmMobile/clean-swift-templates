@@ -2,11 +2,227 @@
 
 -----
 
-## [2.6.1 - Linking Fix](https://github.com/onevcat/Kingfisher/releases/tag/2.6.1) (2016-10-14)
+## [3.6.1 - Some Optimization](https://github.com/onevcat/Kingfisher/releases/tag/3.6.1) (2017-04-01)
 
 #### Fix
-* A linking error of Swift 2.3 that prevents from using nested types when bridging. [#480](https://github.com/onevcat/Kingfisher/issues/480)
-* An issue which prevents to reset the loading indicator type. [c20e455](https://github.com/onevcat/Kingfisher/commit/c20e4556e84326e47e7e8081ea6903b2c2c00a39)
+* Fix warnings when build Kingfisher in Swift 3.1 compiler. [#632](https://github.com/onevcat/Kingfisher/pull/632)
+* Wrong size when decoding images with a passed-in scale option. [#633](https://github.com/onevcat/Kingfisher/pull/633)
+* Speed up MD5 calculation by turing to a pure Swift implementation. [#636](https://github.com/onevcat/Kingfisher/pull/636)
+* Host docs directly in GitHub. [#641](https://github.com/onevcat/Kingfisher/pull/641)
+
+---
+
+## [3.6.0 - Cropping](https://github.com/onevcat/Kingfisher/releases/tag/3.6.0) (2017-03-26)
+
+#### Add
+* A built-in image processor to crop images with a targeted size and anchor. [#465](https://github.com/onevcat/Kingfisher/issues/465)
+
+---
+
+## [3.5.2 - Bad Apple](https://github.com/onevcat/Kingfisher/releases/tag/3.5.2) (2017-03-09)
+
+#### Fix
+* An issue which causes app crashing while folder enumerating encountered an error in `ImageCache`. [#620](https://github.com/onevcat/Kingfisher/pull/620)
+
+---
+
+## [3.5.1 - Fast is better than slow](https://github.com/onevcat/Kingfisher/releases/tag/3.5.1) (2017-03-01)
+
+#### Fix
+* A minor improvement on slow compiling time due to a method in `Image`. [#611](https://github.com/onevcat/Kingfisher/issues/611)
+
+---
+
+## [3.5.0 - New age, new content](https://github.com/onevcat/Kingfisher/releases/tag/3.5.0) (2017-02-21)
+
+#### Add
+* Resizing processor now support to resize images with content mode. You could choose from `aspectFill`, `aspectFit` or just respect the target size. [#597](https://github.com/onevcat/Kingfisher/issues/597)
+
+#### Fix
+* A problem which might cause the downloaded image set unexpected for a cell which already not in use. [#598](https://github.com/onevcat/Kingfisher/pull/598)
+
+---
+
+## [3.4.0 - Spring is here](https://github.com/onevcat/Kingfisher/releases/tag/3.4.0) (2017-02-11)
+
+#### Add
+* Use the `onlyLoadFirstFrame` option to load only the first frame from a GIF file. It will be useful when you want to display a static preview of the first frame from a GIF image. By doing so, you could save huge ammount of memory. [#591](https://github.com/onevcat/Kingfisher/pull/591)
+
+#### Fix
+* Now `cancel` on a `RetrieveImageTask` will work properly even when the downloading not started for `UIButton` and `NSButton` too. [#580](https://github.com/onevcat/Kingfisher/pull/580)
+* Progress block of extensions setting methods will not be called multiple times if you set another task while the previous one still in downloading. [#583](https://github.com/onevcat/Kingfisher/pull/583)
+* Image cache will work properly when `ImagePrefetcher` trying to prefetch images with an `ImageProcessor`. Now the fetched and processed images could be retrieved correctly. [#590](https://github.com/onevcat/Kingfisher/pull/590)
+
+---
+
+## [3.3.4 - Cancellation means a new start!](https://github.com/onevcat/Kingfisher/releases/tag/3.3.4) (2017-02-04)
+
+#### Fix
+* Now `cancel` on a `RetrieveImageTask` will work properly even when the downloading not started. [#578](https://github.com/onevcat/Kingfisher/pull/578)
+* Use modern float constant of pi. [#576](https://github.com/onevcat/Kingfisher/pull/576)
+
+---
+
+## [3.3.3 - Xcode 8.0 is not dead yet](https://github.com/onevcat/Kingfisher/releases/tag/3.3.3) (2017-01-30)
+
+#### Fix
+* A type inference to make Kingfisher compiles on Xcode 8.0 again. [#572](https://github.com/onevcat/Kingfisher/issues/572)
+
+---
+
+## [3.3.2 - Upside Down](https://github.com/onevcat/Kingfisher/releases/tag/3.3.2) (2017-01-23)
+
+#### Fix
+* An issue which causes the background decoded images drawn upside down.
+
+---
+
+## [3.3.1 - Lunar Eve](https://github.com/onevcat/Kingfisher/releases/tag/3.3.1) (2017-01-21)
+
+#### Add
+* Expose default `pngRepresentation`, `jpegRepresentation` and `gifRepresentation` as public. [#560](https://github.com/onevcat/Kingfisher/pull/560)
+* Support unlimited disk cache duration. [#566](https://github.com/onevcat/Kingfisher/pull/566)
+
+#### Fix
+* A mismatch of CG image component when creating `CGContext` for blur filter. [#567](https://github.com/onevcat/Kingfisher/pull/567)
+* Remove test images from repo to keep slim. [#568](https://github.com/onevcat/Kingfisher/pull/568)
+
+---
+
+## [3.3.0 - Lunar Eve](https://github.com/onevcat/Kingfisher/releases/tag/3.3.0) (2017-01-21)
+
+#### Add
+* Expose default `pngRepresentation`, `jpegRepresentation` and `gifRepresentation` as public. [#560](https://github.com/onevcat/Kingfisher/pull/560)
+* Support unlimited disk cache duration. [#566](https://github.com/onevcat/Kingfisher/pull/566)
+
+#### Fix
+* A mismatch of CG image component when creating `CGContext` for blur filter. [#567](https://github.com/onevcat/Kingfisher/pull/567)
+* Remove test images from repo to keep slim. [#568](https://github.com/onevcat/Kingfisher/pull/568)
+
+---
+
+## [3.2.4 - Love SPM again](https://github.com/onevcat/Kingfisher/releases/tag/3.2.4) (2016-12-22)
+
+#### Fix
+* A problem that causes framework cannot be compiled by Swift Package Manager. [#547](https://github.com/onevcat/Kingfisher/issues/547)
+* Removed an unused parameter from round corner image API. [#548](https://github.com/onevcat/Kingfisher/issues/548)
+
+---
+
+## [3.2.3 - LI ZHENG](https://github.com/onevcat/Kingfisher/releases/tag/3.2.3) (2016-12-20)
+
+#### Fix
+* An issue which caused processed images igoring exif orientation information. [#535](https://github.com/onevcat/Kingfisher/issues/535)
+
+---
+
+## [3.2.2 - Faster GIF](https://github.com/onevcat/Kingfisher/releases/tag/3.2.2) (2016-12-02)
+
+#### Fix
+* Improve preload animated image loading strategy by using background queue. This should improve framerate when loading a lot of GIF files in the same time. [#529](https://github.com/onevcat/Kingfisher/pull/529)
+* Make `ImageDownloader` a pure Swift class to avoid the SDK bug which might leak memory in iOS 10. [#520](https://github.com/onevcat/Kingfisher/issues/520)
+* Fix some typos. [#523](https://github.com/onevcat/Kingfisher/issues/523)
+
+---
+
+## [3.2.1 - Helper Helps](https://github.com/onevcat/Kingfisher/releases/tag/3.2.1) (2016-11-14)
+
+#### Add
+* A new set of `KingfisherOptionsInfo` extension helpers to extract options easiser. It will be useful when you are trying to implement your own processors or serializers. [#505](https://github.com/onevcat/Kingfisher/issues/505)
+* Mark the empty task for downloader as `public`. [#508](https://github.com/onevcat/Kingfisher/issues/508)
+
+#### Fix
+* Set placeholder image even when the input resource is `nil`. This is a regression from version 3.2.0. [#510](https://github.com/onevcat/Kingfisher/issues/510)
+
+---
+
+## [3.2.0 - Quiet](https://github.com/onevcat/Kingfisher/releases/tag/3.2.0) (2016-11-07)
+
+#### Add
+* A new option to ignore placeholder and keep current image while loading/downloading a new one. This would be useful when you want to display the earlier image while loading a new one. [494](https://github.com/onevcat/Kingfisher/issues/494)
+* A disk cache path closure to let you fully customize the disk cache path. [#499](https://github.com/onevcat/Kingfisher/pull/499)
+
+#### Fix
+* Move methods which were marked as `open` to their class defination scope, to avoid the compiler restriction when overridden. [#500](https://github.com/onevcat/Kingfisher/pull/500)
+
+---
+
+## [3.1.4 - CIImageProcessor with Data](https://github.com/onevcat/Kingfisher/releases/tag/3.1.4) (2016-10-19)
+
+#### Fix
+* Fix a problem that `CIImageProcessor` not get called when feeding data to the processor. [#485](https://github.com/onevcat/Kingfisher/issues/485)
+
+---
+
+## [3.1.3 - Collocalia](https://github.com/onevcat/Kingfisher/releases/tag/3.1.3) (2016-10-06)
+
+#### Fix
+* A compiling time issue. Now the compile time of Kingfisher should drop dramatically. [#467](https://github.com/onevcat/Kingfisher/pull/467)
+* kf wrapper of all Kingfisher compatible types now a class instead of struct, to make mutating opearation on it possible. [#469](https://github.com/onevcat/Kingfisher/issues/469)
+
+#### Remove
+* requestModifier of `ImageDownloader` is removed to prevent leading to misunderstanding.
+
+---
+
+## [3.1.1 - Kingfisher likes more](https://github.com/onevcat/Kingfisher/releases/tag/3.1.1) (2016-09-28)
+
+#### Fix
+* An issue which prevents using multiple image processors at the same time. Now you can use different `ImageProcessor` at the same time for an image, while keeping high performance since only one downloading process would be fired. [#460](https://github.com/onevcat/Kingfisher/pull/460)
+* A crash when processing some images with built-in `ResizingImageProcessor` and `OverlayImageProcessor` while the input images not having a standard format. [#440](https://github.com/onevcat/Kingfisher/issues/440), [#461](https://github.com/onevcat/Kingfisher/pull/461)
+* ImageCache could accept a path extension as key now. [#456](https://github.com/onevcat/Kingfisher/pull/456)
+
+---
+
+## [3.1.0 - Namespace](https://github.com/onevcat/Kingfisher/releases/tag/3.1.0) (2016-09-21)
+
+#### Add
+* Add `kf` namespace for all extension APIs in Kingfisher. Now no need to worry about name conflicting any more. [#435](https://github.com/onevcat/Kingfisher/pull/435)
+
+#### Fix
+* Mark `AnimateImageView` to open so you can extend this class again. [#442](https://github.com/onevcat/Kingfisher/pull/442)
+* Update demo code to adopt iOS 10 prefetching cell feature and new cell life cycle. [#447](https://github.com/onevcat/Kingfisher/issues/447)
+
+#### Remove
+* Since `kf` namespace is added, all original `kf_` prefix methods are marked as deprecated.
+
+---
+
+## [3.0.1 - New Age - Swift 3](https://github.com/onevcat/Kingfisher/releases/tag/3.0.1) (2016-09-14)
+
+#### Add
+* Swift 3 compatibility. This version follows Swift 3 API design guideline as well as contains a lot of breaking changes from version 2.x. See [Kingfisher 3.0 Migration Guide](https://github.com/onevcat/Kingfisher/wiki/Kingfisher-3.0-Migration-Guide) for more about how to migrate your project to 3.0. Kingfisher 2.6.x is still supporting both Swift 2.2 and 2.3.
+* Image Processor. Now you can specify an image processor and it will be used to process images after downloaded. It is useful when you need to apply some transforming or filter to the image. You can also use the processor to support any other image format, like WebP. See [Processor](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet#processor) section in the wiki for more. The default processor should behave the same as before. [#420](https://github.com/onevcat/Kingfisher/pull/420)
+* Built-in processors from simple round corner and resizing to filters like tint and blur. Check [Built-in processors of Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet#built-in-processors-of-kingfisher) for more.
+* Cache Serializer. [CacheSerializer](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet#serializer) will be used to convert some data to an image object for retrieving from disk cache and vice versa for storing to disk cache.
+* New indicator type. Now you should be able to use your own indicators. [#430](https://github.com/onevcat/Kingfisher/pull/430)
+* ImageDownloadRequestModifier. Use this protocol to modify requests being sent to your server.
+
+#### Fix
+* Resource is now a protocol instead of a struct. Use `ImageResource` for your original `Resource` type. And now `URL` conforms `Resource` so the APIs could be clearer.
+* Now Kingfisher cache will store re-encoded image data instead of the original data by default. This is needed due to we want to store the processed data from `ImageProcessor`. If this is not what you want, you should supply your customized instanse of `CacheSerializer`.
+
+#### Remove
+* KingfisherManager.init is removed since you should never create your own manager.
+* cachedImageExistsforURL in `ImageCache` is removed since it introduced unnecessary coupling. Use `isImageCached` instead.
+* requestModifier` is removed. Use `.requestModifier` and pass a `ImageDownloadRequestModifier`.
+* kf_showIndicatorWhenLoading is removed since we have a better and flexible way to use indicator by `kf_indicatorType`.
+
+---
+
+## [3.0.0 - New Age - Swift 3](https://github.com/onevcat/Kingfisher/releases/tag/3.0.0) (2016-09-14)
+
+#### Add
+* Swift 3 compatibility. This version follows Swift 3 API design guideline as well as contains a lot of breaking changes from version 2.x. See [Kingfisher 3.0 Migration Guide](https://github.com/onevcat/Kingfisher/wiki/Kingfisher-3.0-Migration-Guide) for more about how to migrate your project to 3.0. Kingfisher 2.6.x is still supporting both Swift 2.2 and 2.3.
+* Image Processor. Now you can specify an image processor and it will be used to process images after downloaded. It is useful when you need to apply some transforming or filter to the image. You can also use the processor to support any other image format, like WebP. See [Processor](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet#processor) section in the wiki for more. The default processor should behave the same as before. [#420](https://github.com/onevcat/Kingfisher/pull/420)
+* Built-in processors from simple round corner and resizing to filters like tint and blur. Check [Built-in processors of Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet#built-in-processors-of-kingfisher) for more.
+* Cache Serializer. [CacheSerializer](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet#serializer) will be used to convert some data to an image object for retrieving from disk cache and vice versa for storing to disk cache.
+* New indicator type. Now you should be able to use your own indicators. [#430](https://github.com/onevcat/Kingfisher/pull/430)
+* ImageDownloadRequestModifier. Use this protocol to modify requests being sent to your server.
+
+#### Fix
+* Resource is now a protocol instead of a struct. Use `ImageResource` for your original `Resource` type. And now `URL` conforms `Resource` so the APIs could be clearer.
+* Now Kingfisher cache will store re-encoded image data instead of the original data by default. This is needed due to we want to store the processed data from `ImageProcessor`. If this is not what you want, you should supply your customized instanse of `CacheSerializer`.
 
 ---
 
@@ -426,3 +642,5 @@
 ## [1.0.0 - Kingfisher, take off](https://github.com/onevcat/Kingfisher/releases/tag/1.0.0) (2015-04-13)
 
 First public release.
+
+
