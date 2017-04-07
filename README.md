@@ -40,10 +40,10 @@ We think this is wrong because:
 So we added 2 new protocols on the router
 
 ```swift
-protocol RouterDataSource:class {
+protocol RouterDataSource: class {
 
 }
-protocol RouterDataDestination:class {
+protocol RouterDataDestination: class {
 
 }
 ```
@@ -52,23 +52,23 @@ protocol RouterDataDestination:class {
 
 So following the example before we would add this in the source Router:
 ```swift
-protocol UserListRouterDataSource:class {
-    var selectedUser:User! { get }
+protocol UserListRouterDataSource: class {
+    var selectedUser: User! { get }
 }
 
-protocol UserListRouterDataDestination:class {
+protocol UserListRouterDataDestination: class {
 
 }
 ```
 
 And this in the destination:
 ```swift
-protocol UserDetailRouterDataSource:class {
+protocol UserDetailRouterDataSource: class {
 
 }
 
-protocol UserDetailRouterDataDestination:class {
-    var user:User! {get set}
+protocol UserDetailRouterDataDestination: class {
+    var user: User! {get set}
 }
 ```
 
@@ -84,7 +84,7 @@ As previously mentioned we believe this handling should be done by the Interacto
 So the source Interactor would look like this:
 ```swift
 protocol UserListDataSource {
-    var selectedUser:User! { get }
+    var selectedUser: User! { get }
 }
 
 protocol UserListDataDestination {
@@ -102,7 +102,7 @@ protocol UserDetailDataSource {
 }
 
 protocol UserDetailDataDestination {
-    var user:User! {get set}
+    var user: User! {get set}
 }
 
 class UserDetailInteractor: UserDetailInteractorInput, UserDetailDataSource, UserDetailDataDestination {
@@ -122,7 +122,6 @@ To uninstall the Clean Swift Xcode templates and snippets, run:
 make uninstall
 ```
 
-###### Note: Example is currently not converted to swift 3 but templates are
 To try the Example project you need carthage:
 ```
 brew update
