@@ -11,7 +11,6 @@
 		5D3865A71E962DA400CFEDD1 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3865A51E962DA400CFEDD1 /* UserTableViewCell.swift */; };
 		5D3865A81E962DA400CFEDD1 /* UserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D3865A61E962DA400CFEDD1 /* UserTableViewCell.xib */; };
 		5DB2FAC81E94FBE200B0A5CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2FAC71E94FBE200B0A5CB /* AppDelegate.swift */; };
-		5DB2FACA1E94FBE200B0A5CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2FAC91E94FBE200B0A5CB /* ViewController.swift */; };
 		5DB2FACD1E94FBE200B0A5CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2FACB1E94FBE200B0A5CB /* Main.storyboard */; };
 		5DB2FACF1E94FBE200B0A5CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2FACE1E94FBE200B0A5CB /* Assets.xcassets */; };
 		5DB2FADA1E94FC3C00B0A5CB /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2FAD91E94FC3C00B0A5CB /* Cartfile */; };
@@ -48,7 +47,6 @@
 		5D3865A61E962DA400CFEDD1 /* UserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
 		5DB2FAC41E94FBE200B0A5CB /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DB2FAC71E94FBE200B0A5CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5DB2FAC91E94FBE200B0A5CB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5DB2FACC1E94FBE200B0A5CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5DB2FACE1E94FBE200B0A5CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DB2FAD31E94FBE200B0A5CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 				5DB2FB0E1E950CC200B0A5CB /* Models */,
 				5DB2FADD1E95010300B0A5CB /* Scenes */,
 				5DB2FAC71E94FBE200B0A5CB /* AppDelegate.swift */,
-				5DB2FAC91E94FBE200B0A5CB /* ViewController.swift */,
 				5DB2FACB1E94FBE200B0A5CB /* Main.storyboard */,
 				5DB2FACE1E94FBE200B0A5CB /* Assets.xcassets */,
 				5DB2FAD31E94FBE200B0A5CB /* Info.plist */,
@@ -368,7 +365,6 @@
 				5DB2FAEA1E95015100B0A5CB /* UserListRouter.swift in Sources */,
 				5DB2FAFA1E950A5000B0A5CB /* UserListWorker.swift in Sources */,
 				5DB2FB121E950CEE00B0A5CB /* Name.swift in Sources */,
-				5DB2FACA1E94FBE200B0A5CB /* ViewController.swift in Sources */,
 				5DB2FAE81E95015100B0A5CB /* UserListModels.swift in Sources */,
 				5DB2FB191E950DCF00B0A5CB /* UserNetworkStore.swift in Sources */,
 				5DB2FAC81E94FBE200B0A5CB /* AppDelegate.swift in Sources */,
