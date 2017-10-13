@@ -10,6 +10,6 @@
 //
 //  Type "usecase" for some magic!
 
-struct ___FILEBASENAMEASIDENTIFIER___Scene {
+struct ___VARIABLE_sceneName___Scene {
     
 }
