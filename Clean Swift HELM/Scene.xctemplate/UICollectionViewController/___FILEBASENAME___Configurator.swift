@@ -12,30 +12,30 @@ import UIKit
 
 // MARK: Connect View, Interactor, and Presenter
 
-extension ___FILEBASENAMEASIDENTIFIER___Interactor: ___FILEBASENAMEASIDENTIFIER___ViewControllerOutput, ___FILEBASENAMEASIDENTIFIER___RouterDataSource, ___FILEBASENAMEASIDENTIFIER___RouterDataDestination {
+extension ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___ViewControllerOutput, ___VARIABLE_sceneName___RouterDataSource, ___VARIABLE_sceneName___RouterDataDestination {
 }
 
-extension ___FILEBASENAMEASIDENTIFIER___Presenter: ___FILEBASENAMEASIDENTIFIER___InteractorOutput {
+extension ___VARIABLE_sceneName___Presenter: ___VARIABLE_sceneName___InteractorOutput {
 }
 
-class ___FILEBASENAMEASIDENTIFIER___Configurator {
+class ___VARIABLE_sceneName___Configurator {
     // MARK: Object lifecycle
     
-    static let sharedInstance = ___FILEBASENAMEASIDENTIFIER___Configurator()
+    static let sharedInstance = ___VARIABLE_sceneName___Configurator()
     
     private init() {}
     
     // MARK: Configuration
     
-    func configure(viewController: ___FILEBASENAMEASIDENTIFIER___ViewController) {
+    func configure(viewController: ___VARIABLE_sceneName___ViewController) {
         
-        let presenter = ___FILEBASENAMEASIDENTIFIER___Presenter()
+        let presenter = ___VARIABLE_sceneName___Presenter()
         presenter.output = viewController
         
-        let interactor = ___FILEBASENAMEASIDENTIFIER___Interactor()
+        let interactor = ___VARIABLE_sceneName___Interactor()
         interactor.output = presenter
         
-        let router = ___FILEBASENAMEASIDENTIFIER___Router(viewController: viewController, dataSource: interactor, dataDestination: interactor)
+        let router = ___VARIABLE_sceneName___Router(viewController: viewController, dataSource: interactor, dataDestination: interactor)
         
         viewController.output = interactor
         viewController.router = router

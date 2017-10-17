@@ -10,25 +10,25 @@
 
 import UIKit
 
-protocol ___FILEBASENAMEASIDENTIFIER___RouterInput {
+protocol ___VARIABLE_sceneName___RouterInput {
     
 }
 
-protocol ___FILEBASENAMEASIDENTIFIER___RouterDataSource: class {
+protocol ___VARIABLE_sceneName___RouterDataSource: class {
     
 }
 
-protocol ___FILEBASENAMEASIDENTIFIER___RouterDataDestination: class {
+protocol ___VARIABLE_sceneName___RouterDataDestination: class {
     
 }
 
-class ___FILEBASENAMEASIDENTIFIER___Router: ___FILEBASENAMEASIDENTIFIER___RouterInput {
+class ___VARIABLE_sceneName___Router: ___VARIABLE_sceneName___RouterInput {
     
-    weak var viewController: ___FILEBASENAMEASIDENTIFIER___ViewController!
-    weak private var dataSource: ___FILEBASENAMEASIDENTIFIER___RouterDataSource!
-    weak var dataDestination: ___FILEBASENAMEASIDENTIFIER___RouterDataDestination!
+    weak var viewController: ___VARIABLE_sceneName___ViewController!
+    weak private var dataSource: ___VARIABLE_sceneName___RouterDataSource!
+    weak var dataDestination: ___VARIABLE_sceneName___RouterDataDestination!
     
-    init(viewController: ___FILEBASENAMEASIDENTIFIER___ViewController, dataSource: ___FILEBASENAMEASIDENTIFIER___RouterDataSource, dataDestination: ___FILEBASENAMEASIDENTIFIER___RouterDataDestination) {
+    init(viewController: ___VARIABLE_sceneName___ViewController, dataSource: ___VARIABLE_sceneName___RouterDataSource, dataDestination: ___VARIABLE_sceneName___RouterDataDestination) {
         self.viewController = viewController
         self.dataSource = dataSource
         self.dataDestination = dataDestination
