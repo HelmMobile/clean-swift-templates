@@ -10,24 +10,24 @@
 
 import UIKit
 
-protocol ___FILEBASENAMEASIDENTIFIER___ViewControllerInput {
+protocol ___VARIABLE_sceneName___ViewControllerInput {
     
 }
 
-protocol ___FILEBASENAMEASIDENTIFIER___ViewControllerOutput {
+protocol ___VARIABLE_sceneName___ViewControllerOutput {
     
 }
 
-class ___FILEBASENAMEASIDENTIFIER___ViewController: UITableViewController, ___FILEBASENAMEASIDENTIFIER___ViewControllerInput {
+class ___VARIABLE_sceneName___ViewController: UITableViewController, ___VARIABLE_sceneName___ViewControllerInput {
     
-    var output: ___FILEBASENAMEASIDENTIFIER___ViewControllerOutput?
-    var router: ___FILEBASENAMEASIDENTIFIER___Router?
+    var output: ___VARIABLE_sceneName___ViewControllerOutput?
+    var router: ___VARIABLE_sceneName___Router?
     
     // MARK: Object lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        ___FILEBASENAMEASIDENTIFIER___Configurator.sharedInstance.configure(viewController: self)
+        ___VARIABLE_sceneName___Configurator.sharedInstance.configure(viewController: self)
     }
     
     // MARK: View lifecycle
@@ -44,7 +44,7 @@ class ___FILEBASENAMEASIDENTIFIER___ViewController: UITableViewController, ___FI
 }
 
 //This should be on configurator but for some reason storyboard doesn't detect ViewController's name if placed there
-extension ___FILEBASENAMEASIDENTIFIER___ViewController: ___FILEBASENAMEASIDENTIFIER___PresenterOutput {
+extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___PresenterOutput {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         router?.passDataToNextScene(for: segue)
     }
