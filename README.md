@@ -34,7 +34,7 @@ We think this is wrong because:
 
 1. We are not trying to output anything from the ViewController.
 2. We are assuming the output === Interactor and the architecture loses sense (no component should know about what kind of object its output/input is).
-3. We dont want the ViewController to know anythyng about Business model.
+3. We dont want the ViewController to know anything about Business model.
 4. We want the Interactor to handle this data but we don't want the ViewController to know anything about it.
 
 So we added 2 new protocols on the router
@@ -68,7 +68,7 @@ protocol UserDetailRouterDataSource: class {
 }
 
 protocol UserDetailRouterDataDestination: class {
-    var user: User! {get set}
+    var user: User! { get set }
 }
 ```
 
@@ -102,7 +102,7 @@ protocol UserDetailDataSource {
 }
 
 protocol UserDetailDataDestination {
-    var user: User! {get set}
+    var user: User! { get set }
 }
 
 class UserDetailInteractor: UserDetailInteractorInput, UserDetailDataSource, UserDetailDataDestination {
